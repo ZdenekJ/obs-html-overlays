@@ -15,6 +15,7 @@ body {
   box-sizing: border-box;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 body {
   background-image: url("bg.png");
@@ -31,19 +32,19 @@ body {
   border: 0.14rem solid #aaa;
   border-radius: 0.04rem;
   box-shadow: 0 0 0 0.04rem #999, 0 0 0.08rem 0.08rem #333;
-  transition: transform 0.25s;
+  z-index: 100;
 }
 .window::before {
   position: absolute;
   top: 0.08rem;
-  right: 0;
+  right: 0.04rem;
   display: block;
   height: 1.4vw;
   width: 1.4vw;
   content: "×";
   font-weight: bold;
   font-size: 1.2rem;
-  line-height: 0.75;
+  line-height: 0.78;
   text-align: center;
   border-radius: 0.2rem;
   background-color: rgb(129, 24, 24);
@@ -63,15 +64,15 @@ body {
 }
 
 .window--brb {
+  z-index: 100000;
   top: 6vw;
   right: 3vw;
-  width: 34vw;
-  height: 16vw;
+  width: 20rem;
+  height: 10rem;
   background-color: rgba(104, 28, 28, 0.92);
   transform-origin: 100% 0%;
   transform: scale(0);
   animation: 2.3s linear 0s infinite alternate brbBackgound;
-  z-index: 100000;
 }
 
 @keyframes brbBackgound {
@@ -83,20 +84,29 @@ body {
   }
 }
 
+@keyframes showWindow {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .window--blume {
   top: 3vw;
   left: 6vw;
-  width: 40vw;
-  height: 60vh;
+  width: 24rem;
+  height: 20rem;
   transform-origin: 0 0;
   transform: scale(0);
 }
 
 .window--dedsec {
-  top: 50vh;
+  top: 53vh;
   left: 50vw;
-  width: 40vw;
-  height: 30vh;
+  width: 30rem;
+  height: 14rem;
   transform: scale(0);
 }
 
@@ -106,15 +116,32 @@ body {
   transform: scale(1);
 }
 
+.window--scan {
+  bottom: 0;
+  left: 0.4rem;
+  z-index: 1;
+}
+
+.window--firewallDown {
+  bottom: 1vw;
+  left: 28vw;
+  z-index: 1;
+}
+.window--firewallDown .window__content {
+  font-weight: bold;
+  color: rgb(168, 26, 26);
+}
+
 .window--show {
-  transform: scale(1);
+  animation: showWindow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  /* transform: scale(1); */
 }
 .window--showQuickly {
-  transform: scale(1);
-  transition: transform 0.1s;
+  animation: showWindow 0.1s forwards;
 }
 
 pre {
+  margin: 0;
   font-size: 0.4rem;
 }
 p {
