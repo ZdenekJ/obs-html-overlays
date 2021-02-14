@@ -7,18 +7,56 @@ const windowUploading = document.querySelector(".window--uploading");
 const loadingEl = document.querySelector(".loading");
 const percentEl = document.querySelector(".percent");
 const progressBarEl = document.querySelector(".progressBar");
-const uploadingTo = 13;
+const uploadingTo = 99;
+const windowDedsecContent = windowDedsec.querySelector("window__content");
+let windowDedsecLines;
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const keyStrokeDelay = (min = 50, max = 150) =>
+  Math.floor(Math.random() * (max - min) + min);
 
 const toggleWindow = (el, showClass = "window--show") =>
   el.classList.toggle(showClass);
 
+const writeLine = async (lineEl) => {
+  let x;
+  if (lineEl.classList.contains("instant")) {
+    lineEl.textContent = lineEl.dataset.text;
+    x = await sleep(keyStrokeDelay());
+  } else {
+    for (var i = 0; i < lineEl.dataset.text.length; i++) {
+      lineEl.textContent = lineEl.textContent + lineEl.dataset.text[i];
+      x = await sleep(keyStrokeDelay());
+    }
+  }
+  return x;
+};
+
 setTimeout(() => {
-  toggleWindow(windowDedsec);
+  (async () => {
+    windowDedsecLines = windowDedsec.querySelectorAll("p");
+    windowDedsecLines.forEach((el) => {
+      el.dataset.text = el.textContent;
+      el.textContent = "";
+    });
+    toggleWindow(windowDedsec);
+    // windowDedsecLines.forEach(async (el) => {
+    //   writeLine(el);
+    //   await sleep(keyStrokeDelay());
+    // });
+    for (var i = 0; i < windowDedsecLines.length; i++) {
+      let x = await writeLine(windowDedsecLines[i]);
+      windowDedsecContent.scrollTop = windowDedsecContent.scrollHeight;
+      // await sleep(keyStrokeDelay());
+    }
+    // writeLine(windowDedsecLines[0]);
+  })();
 }, 1000);
 
 setTimeout(() => {
   toggleWindow(windowBrb);
 }, 2000);
+5;
 
 setTimeout(() => {
   toggleWindow(windowBlume, "window--showQuickly");
