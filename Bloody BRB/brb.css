@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  background-color: rgba(0, 0, 0, 0);
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body {
+  background-image: url("../bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+svg {
+  margin: 0 auto;
+  height: 100vh;
+  display: block;
+}
+svg path {
+  fill: transparent;
+}
+.brbBox {
+  top: 5rem;
+  padding: 1rem 4rem;
+  position: absolute;
+  background-color: #000;
+  color: rgb(255, 191, 0);
+  font-size: 1.4rem;
+  background-clip: padding-box; /* !importanté */
+  border: solid 1rem transparent; /* !importanté */
+}
+.brbBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1rem; /* !importanté */
+  border-radius: inherit; /* !importanté */
+  /* background: linear-gradient(to right, red, orange); */
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 191, 0, 1) 0,
+    rgba(255, 191, 0, 1) 1rem,
+    rgba(0, 0, 0, 1) 0,
+    rgba(0, 0, 0, 1) 2rem
+  );
+}
+.brbBox--left {
+  left: 0;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  border-left: 0;
+  box-shadow: rgba(255, 191, 0, 0.5) 0 0 0.4rem, #000 0.2rem 0 1rem;
+}
+.brbBox--right {
+  right: 0;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  border-right: 0;
+  box-shadow: rgba(255, 191, 0, 0.5) 0 0 0.4rem, #000 -0.2rem 0 2rem;
+}
+audio {
+  position: absolute;
+}

@@ -8,10 +8,11 @@ const loadingEl = document.querySelector(".loading");
 const percentEl = document.querySelector(".percent");
 const progressBarEl = document.querySelector(".progressBar");
 const uploadingTo = 99;
-const windowDedsecContent = windowDedsec.querySelector("window__content");
+const windowDedsecContent = windowDedsec.querySelector(".window__content");
 let windowDedsecLines;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const keyStrokeDelay = (min = 50, max = 150) =>
   Math.floor(Math.random() * (max - min) + min);
 
@@ -26,40 +27,21 @@ const writeLine = async (lineEl) => {
   } else {
     for (var i = 0; i < lineEl.dataset.text.length; i++) {
       lineEl.textContent = lineEl.textContent + lineEl.dataset.text[i];
+      windowDedsecContent.scrollTop = windowDedsecContent.scrollHeight;
+
       x = await sleep(keyStrokeDelay());
     }
   }
+  windowDedsecContent.scrollTop = windowDedsecContent.scrollHeight;
   return x;
 };
 
 setTimeout(() => {
-  (async () => {
-    windowDedsecLines = windowDedsec.querySelectorAll("p");
-    windowDedsecLines.forEach((el) => {
-      el.dataset.text = el.textContent;
-      el.textContent = "";
-    });
-    toggleWindow(windowDedsec);
-    // windowDedsecLines.forEach(async (el) => {
-    //   writeLine(el);
-    //   await sleep(keyStrokeDelay());
-    // });
-    for (var i = 0; i < windowDedsecLines.length; i++) {
-      let x = await writeLine(windowDedsecLines[i]);
-      windowDedsecContent.scrollTop = windowDedsecContent.scrollHeight;
-      // await sleep(keyStrokeDelay());
-    }
-    // writeLine(windowDedsecLines[0]);
-  })();
-}, 1000);
-
-setTimeout(() => {
-  toggleWindow(windowBrb);
+  // toggleWindow(windowBrb);
 }, 2000);
-5;
 
 setTimeout(() => {
-  toggleWindow(windowBlume, "window--showQuickly");
+  // toggleWindow(windowBlume, "window--showQuickly");
 }, 3000);
 
 const uploadingWindow = () => {
@@ -106,3 +88,35 @@ const uploadingWindow = () => {
 setTimeout(() => {
   uploadingWindow();
 }, 30);
+
+const openWindowDedsec = (_) => {
+  windowDedsecLines = windowDedsec.querySelectorAll("p");
+  windowDedsecLines.forEach((el) => {
+    el.dataset.text = el.textContent;
+    el.textContent = "";
+  });
+  toggleWindow(windowDedsec);
+  return windowDedsecLines;
+};
+
+const writeLines = async (nodes) => {
+  for (var i = 0; i < nodes.length; i++) {
+    let x = await writeLine(nodes[i]);
+    await sleep(keyStrokeDelay());
+  }
+};
+
+const run = async function () {
+  console.log("log 1");
+  windowDedsecLines = openWindowDedsec();
+  await sleep(100);
+
+  console.log("log 2");
+  await writeLines(windowDedsecLines);
+  await sleep(100);
+  console.log("log 3");
+  console.log("log 4");
+  console.log("log 5");
+};
+
+run();
