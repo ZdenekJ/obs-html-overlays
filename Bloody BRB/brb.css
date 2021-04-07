@@ -26,32 +26,45 @@ svg path {
 }
 .brbBox {
   top: 5rem;
-  padding: 1rem 4rem;
   position: absolute;
+  overflow: hidden;
+}
+.brbBox h1 {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  padding: 2rem 4rem;
   background-color: #000;
   color: rgb(255, 191, 0);
+  border: solid 1rem transparent;
   font-size: 1.4rem;
-  background-clip: padding-box; /* !importanté */
-  border: solid 1rem transparent; /* !importanté */
+  background-clip: padding-box;
+}
+
+.brbBox--left h1 {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  border-left: 0;
+}
+.brbBox--right h1 {
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  border-right: 0;
 }
 .brbBox::before {
   content: "";
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  margin: -1rem; /* !importanté */
-  border-radius: inherit; /* !importanté */
-  /* background: linear-gradient(to right, red, orange); */
+  width: 100rem;
+  height: 100rem;
+  border-radius: inherit;
   background-image: repeating-linear-gradient(
-    45deg,
     rgba(255, 191, 0, 1) 0,
     rgba(255, 191, 0, 1) 1rem,
-    rgba(0, 0, 0, 1) 0,
+    rgba(0, 0, 0, 1) 1rem,
     rgba(0, 0, 0, 1) 2rem
   );
+  transform: translateX(-20%) translateY(-20%) rotate(-45deg);
+  animation: animate 30s linear infinite;
 }
 .brbBox--left {
   left: 0;
@@ -67,6 +80,18 @@ svg path {
   border-right: 0;
   box-shadow: rgba(255, 191, 0, 0.5) 0 0 0.4rem, #000 -0.2rem 0 2rem;
 }
+.brbBox--right::before {
+  transform: translateX(-20%) translateY(-20%) rotate(45deg);
+}
 audio {
   position: absolute;
+}
+@keyframes animate {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: 0 450px;
+  }
 }
